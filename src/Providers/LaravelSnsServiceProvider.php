@@ -3,12 +3,15 @@
 namespace Solpac\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Solpac\Sns\Manager;
 
 class LaravelSnsServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
+        $this->app->bind(Manager::class, function () {
+            return new Manager(config('topics'));
+        });
     }
 
     public function boot()
