@@ -1,0 +1,30 @@
+{
+    "name": "rafael-labegalini/laravel-sns",
+    "description": "Provides a easy way to publish message from laravel to SNS Topic",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rafael Labegalini",
+            "email": "rjlabegalini8@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "aws/aws-sdk-php": "^3.133",
+        "illuminate/support": "^6.15",
+        "aws/aws-sdk-php-laravel": "^3.4"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Solpac\\Providers\\LaravelSnsServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Solpac\\": "src/"
+        }
+    }
+}
