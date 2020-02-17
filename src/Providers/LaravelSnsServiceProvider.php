@@ -10,7 +10,10 @@ class LaravelSnsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Manager::class, function () {
-            return new Manager(config('topics'));
+            return new Manager(
+                config('topics.publishers'),
+                config('topics.handlers')
+            );
         });
     }
 
