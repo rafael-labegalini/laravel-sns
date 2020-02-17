@@ -3,6 +3,7 @@
 namespace Solpac\Sns;
 
 use Aws\Laravel\AwsFacade;
+use Aws\Result;
 use Aws\Sns\SnsClient;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
@@ -27,7 +28,7 @@ class Topic
     {
         $validator = Validator::make($config, [
             'topic_arn' => 'required|string',
-            'subject' => 'nullable'
+            'subject' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -44,10 +45,13 @@ class Topic
         return $this;
     }
 
+    /**
+     * @param array $data
+     * @return Result
+     */
     public function publish(array $data)
     {
-        $this->client->publish([
-
-        ]);
+        $this->config['Message'] = json_encode($data);
+        return $this->client->publish($this->config);
     }
 }
