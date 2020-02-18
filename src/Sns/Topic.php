@@ -27,8 +27,8 @@ class Topic
     public function __construct(array $config)
     {
         $validator = Validator::make($config, [
-            'topic_arn' => 'required|string',
-            'subject' => 'required|string'
+            'TopicArn' => 'required|string',
+            'Subject' => 'required|string'
         ]);
 
         if ($validator->fails()) {
