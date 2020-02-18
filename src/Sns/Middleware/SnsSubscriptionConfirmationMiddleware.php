@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Solpac\Sns\Middleware;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
@@ -28,7 +28,7 @@ class SnsSubscriptionConfirmationMiddleware
 
         if ($message['Type'] === 'SubscriptionConfirmation') {
             file_get_contents($message['SubscribeURL']);
-            Log::debug('Subscription confirmed');
+            Log::debug('Subscription confirmed', ['topic_arn' => $message['TopicArn']]);
 
             return response()->json(['status' => 'SubscriptionConfirmed'], 200);
         } elseif ($message['Type'] === 'Notification') {
