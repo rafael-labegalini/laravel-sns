@@ -2,6 +2,7 @@
 
 namespace Solpac\Sns;
 
+use Aws\Sns\Message;
 use InvalidArgumentException;
 
 class Manager
@@ -10,7 +11,7 @@ class Manager
     /**
      * @var array
      */
-    private $handlers;
+    private $handlers = [];
 
     /**
      * Manager constructor.
@@ -32,5 +33,20 @@ class Manager
         $configs = $this->topics[$key];
 
         return new Topic($configs);
+    }
+
+    public function handle(Message $message)
+    {
+        $subject = $message['Subject'];
+
+        if (!array_key_exists($subject, $this->handlers)) {
+            return;
+        }
+
+        $handler = resolve($this->handlers[$subject]);
+
+        if (method_exists($handler, 'handle')) {
+            $handler->handle($message);
+        }
     }
 }
